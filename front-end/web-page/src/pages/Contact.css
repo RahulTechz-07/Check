@@ -1,0 +1,258 @@
+/* Contact Page Layout */
+.contact-page {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  background: linear-gradient(to right, #f0f4ff, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.contact-title {
+  text-align: center;
+  color: #2563eb;
+  margin-bottom: 30px;
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+/* Section Base Style */
+section {
+  margin-bottom: 40px;
+  padding: 24px;
+  border-radius: 18px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* ===================== */
+/* 🎓 HOD Section        */
+/* ===================== */
+section.hod {
+  border-left: 6px solid #ff9800;
+  background: linear-gradient(135deg, #fff8e1, #ffecb3);
+  box-shadow: 0 8px 24px rgba(255, 152, 0, 0.2);
+}
+
+section.hod h2 {
+  color: #e65100;
+  font-size: 26px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  background: #fff3e0;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border-bottom: 3px solid #ffcc80;
+}
+
+/* ===================== */
+/* 🤝 Overall Coordinators */
+/* ===================== */
+section.overall {
+  border-left: 6px solid #0dcaf0;
+  background: linear-gradient(135deg, #d1f4ff, #e7faff);
+  box-shadow: 0 8px 24px rgba(13, 202, 240, 0.2);
+}
+
+section.overall h2 {
+  color: #0d6efd;
+  font-size: 26px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  background: #e3f2fd;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border-bottom: 3px solid #b3dfff;
+}
+
+/* ===================== */
+/* 🎯 Events Coordinators */
+/* ===================== */
+section.events {
+  border-left: 6px solid #6f42c1;
+  background: linear-gradient(135deg, #ede7f6, #f3e5f5);
+  box-shadow: 0 8px 24px rgba(111, 66, 193, 0.15);
+}
+
+section.events h2 {
+  color: #4a148c;
+  font-size: 26px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  background: #f3e5f5;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border-bottom: 3px solid #d6c8f1;
+}
+
+/* ===================== */
+/* 🍽️ Food Coordinators */
+/* ===================== */
+section.food {
+  border-left: 6px solid #28a745;
+  background: linear-gradient(135deg, #e0f7df, #f1fff1);
+  box-shadow: 0 8px 24px rgba(40, 167, 69, 0.15);
+}
+
+section.food h2 {
+  color: #1b5e20;
+  font-size: 26px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  background: #e8f5e9;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border-bottom: 3px solid #b2fab4;
+}
+
+/* ===================== */
+/* Common Elements       */
+/* ===================== */
+.event-block h3,
+.coordinator-group h3 {
+  font-size: 20px;
+  color: #444;
+  margin-top: 20px;
+  border-left: 4px solid #2563eb;
+  padding-left: 12px;
+  font-weight: 600;
+}
+
+.coordinator-group ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 8px;
+}
+
+.coordinator-group li {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+section.hod .coordinator-group li {
+  background: #fff9e6;
+  border: 1px solid #ffe0b2;
+}
+section.hod .coordinator-group li:hover {
+  background-color: #fff3cd;
+}
+
+section.overall .coordinator-group li {
+  background: #e8faff;
+  border: 1px solid #b3e5fc;
+}
+section.overall .coordinator-group li:hover {
+  background-color: #d0f0ff;
+}
+
+section.events .coordinator-group li {
+  background: #f8f3ff;
+  border: 1px solid #d1c4e9;
+}
+section.events .coordinator-group li:hover {
+  background-color: #eee0ff;
+}
+
+section.food .coordinator-group li {
+  background: #efffed;
+  border: 1px solid #c8e6c9;
+}
+section.food .coordinator-group li:hover {
+  background-color: #dbf7d6;
+}
+
+.coordinator-group li span {
+  font-weight: 600;
+  color: #333;
+}
+
+.coordinator-group li a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.fade-in.delay-1 {
+  animation-delay: 0.2s;
+}
+.fade-in.delay-2 {
+  animation-delay: 0.4s;
+}
+.fade-in.delay-3 {
+  animation-delay: 0.6s;
+}
+.fade-in.delay-4 {
+  animation-delay: 0.8s;
+}
+/* Common block style */
+.event-block {
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 16px;
+  border-left: 5px solid #2563eb;
+  background: #f9f9ff;
+  transition: transform 0.3s ease;
+}
+.event-block:hover {
+  transform: scale(1.02);
+}
+
+/* Differentiated Styles */
+.event-1 {
+  background: linear-gradient(135deg, #f0f9ff, #e0f7fa);
+  border: 5px solid #0dcaf0;
+}
+.event-2 {
+  background: linear-gradient(135deg, #fff3f3, #ffe0e0);
+  border: 5px solid #dc3545;
+}
+.event-3 {
+  background: linear-gradient(135deg, #f3e5f5, #ede7f6);
+ border: 5px solid #6f42c1;
+}
+.event-4 {
+  background: linear-gradient(135deg, #f1f8e9, #e8f5e9);
+ border: 5px solid #28a745;
+}
+.event-5 {
+  background: linear-gradient(135deg, #fffde7, #fff9c4);
+border: 5px solid #ffc107;
+}
+.event-6 {
+  background: linear-gradient(135deg, #ede7f6, #f8bbd0);
+  border: 5px solid #e91e63;
+}
+.event-7 {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  border: 5px solid #007bff;
+  
+}

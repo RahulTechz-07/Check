@@ -1,0 +1,155 @@
+:root {
+  --primary-blue: #2563eb;
+  --bg-white: #ffffff;
+  --accent-gold: #ffd700;
+  --glass: rgba(255, 255, 255, 0.75);
+  --border: rgba(255, 255, 255, 0.3);
+}
+
+/* Background gradient */
+body {
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Segoe UI', sans-serif;
+  
+}
+
+/* Container with glass effect */
+.registration-container {
+  max-width: 780px;
+  margin: 60px auto;
+  padding: 40px 32px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(245, 245, 255, 0.8));
+  border-radius: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.img {
+  width: 100%;
+  max-width: 780px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 20px auto;
+  object-fit: cover;
+}
+
+.registration-container:hover {
+  transform: scale(1.015);
+  box-shadow: 0 12px 36px rgba(37, 99, 235, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.registration-container h1 {
+  text-align: center;
+  color: var(--primary-blue);
+  font-size: 32px;
+  margin-bottom: 50px;
+  text-shadow: 1px 1px 3px #00000044;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Form Rows */
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.form-row label {
+  flex: 1;
+  font-weight: 600;
+  color: #222;
+  white-space: nowrap;
+}
+
+.form-row input,
+.form-row select {
+  flex: 2;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.5);
+}
+
+/* Headings */
+.registration-form h2 {
+  margin-top: 30px;
+  margin-bottom: 12px;
+  color: var(--primary-blue);
+  text-align: center;
+  font-size: 24px;
+}
+
+/* Red error/instruction text */
+.error {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: -10px;
+}
+
+/* Submit Button */
+button[type="submit"] {
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+button[type="submit"]:hover {
+  background-color: #1e40af;
+  transform: translateY(-2px);
+}
+
+button[disabled] {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+h3 {
+  text-align: center;
+  color: #111;
+  font-size: 20px;
+  margin-top: 10px;
+}
