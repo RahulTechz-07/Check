@@ -9,7 +9,7 @@
 .events-container h1 {
   font-size: 52px;
   font-weight: 800;
-  color: var(--accent-gold);
+  color: #0a296d;
   text-align: center;
   margin-bottom: 20px;
   letter-spacing: 1.5px;
@@ -64,11 +64,54 @@
 .event-type {
   font-size: 14px;
   font-weight: bold;
-  color: var(--accent-gold);
+  color: #0a296d;
   margin-bottom: 10px;
 }
 
 .coordinators ul {
   padding-left: 16px;
   margin: 8px 0;
+}
+/* 📱 Mobile View for Events Page */
+@media (max-width: 768px) {
+  .events-container {
+    padding: 20px 12px;
+  }
+
+  .events-container h1 {
+    font-size: 32px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  .event-section-title {
+    font-size: 22px;
+    margin: 30px 0 16px;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr; /* Stack one per row on mobile */
+    gap: 16px;
+  }
+
+  .event-card {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  }
+
+  .event-image {
+    height: 160px;
+  }
+
+  .event-info h2 {
+    font-size: 18px;
+  }
+
+  .event-type {
+    font-size: 13px;
+  }
+
+  .coordinators ul {
+    font-size: 14px;
+  }
 }

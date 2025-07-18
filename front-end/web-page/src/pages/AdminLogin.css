@@ -48,3 +48,27 @@
   color: red;
   font-weight: bold;
 }
+/* 📱 Mobile Responsive for Admin Login */
+@media (max-width: 768px) {
+  .admin-login-container {
+    margin: 40px 20px;
+    padding: 20px;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .admin-login-container h2 {
+    font-size: 22px;
+  }
+
+  .admin-login-form input,
+  .admin-login-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .error-msg {
+    font-size: 14px;
+  }
+}

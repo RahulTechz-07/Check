@@ -7,7 +7,7 @@ import aamecimage from "../images/aamec_background.jpg";
 const Home = () => {
   return (
     <div className="home-container">
-      <h1 className="welcome-heading">Welcome You All... 🙏</h1>
+      <h1 className="welcome-heading">Welcome You All...</h1>
 
   <section className="hero-section">
   <div className="hero-content">

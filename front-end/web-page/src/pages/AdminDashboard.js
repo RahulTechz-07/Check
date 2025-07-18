@@ -1,3 +1,4 @@
+// AdminDashboard.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
@@ -12,16 +13,14 @@ import {
   Pie,
   Cell,
   Legend,
-  Sector
+  LabelList
 } from "recharts";
 import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 
-// Custom color palette
 const COLORS = [
-  "#4e79a7", "#f28e2b", "#e15759", "#26cdbfff",
-  "#41b932ff", "#edc948", "#b07aa1", "#ff9da7",
-  "#9c755f", "#bab0ab"
+  "#ff6b6b", "#6a89cc", "#38ada9", "#f8c291", "#e55039",
+  "#1e3799", "#78e08f", "#fad390", "#60a3bc", "#e66767"
 ];
 
 const AdminDashboard = () => {
@@ -32,9 +31,15 @@ const AdminDashboard = () => {
     eventCounts: {},
     collegeCounts: {}
   });
-
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 480);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchParticipants = async () => {
@@ -46,7 +51,6 @@ const AdminDashboard = () => {
         console.error("Failed to fetch participants", err);
       }
     };
-
     fetchParticipants();
   }, []);
 
@@ -145,34 +149,62 @@ const AdminDashboard = () => {
         <h3 className="stat-heading">Event-wise Count</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={eventChartData}>
-            <XAxis dataKey="name" />
             <YAxis allowDecimals={false} />
             <Tooltip />
-            <Bar dataKey="count" fill="#007bff" />
+            <Bar dataKey="count" fill="#007bff">
+              {isMobile && (
+                <LabelList
+                  dataKey="name"
+                  position="inside"
+                  angle={-90}
+                  fill="#fff"
+                  fontSize={12}
+                  style={{ textAnchor: "middle" }}
+                />
+              )}
+              {!isMobile && <XAxis dataKey="name" />}
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
 
-        <h3 className="stat-heading">College-wise Count</h3>
-        <ResponsiveContainer width="100%" height={320}>
-          <PieChart>
-            <Pie
-              data={collegeChartData}
-              cx="50%"
-              cy="50%"
-              outerRadius={110}
-              dataKey="value"
-              isAnimationActive={true}
-              activeIndex={activeIndex}
-              onMouseEnter={onPieEnter}
-              label={({ name, value }) => `${name}: ${value}`}
-            >
-              {collegeChartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Legend layout="horizontal" verticalAlign="bottom" />
-          </PieChart>
-        </ResponsiveContainer>
+      <h3 className="stat-heading">College-wise Count</h3>
+<ResponsiveContainer width="100%" height={isMobile ? 220 : 320}>
+  <PieChart>
+    <Pie
+      data={collegeChartData}
+      cx="50%"
+      cy="50%"
+      outerRadius={isMobile ? 70 : 110}
+      dataKey="value"
+      isAnimationActive={true}
+      activeIndex={activeIndex}
+      label={isMobile ? ({ value }) => `${value}` : ({ name, value }) => `${name}: ${value}`}
+    >
+      {collegeChartData.map((entry, index) => (
+        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+      ))}
+    </Pie>
+  </PieChart>
+</ResponsiveContainer>
+
+{/* Render Legend separately only on mobile */}
+{isMobile && (
+  <div className="mobile-college-legend">
+    {collegeChartData.map((entry, index) => (
+      <div key={index} className="legend-item">
+        <span
+          className="legend-color"
+          style={{ backgroundColor: COLORS[index % COLORS.length] }}
+        ></span>
+        <span className="legend-name">{entry.name}</span>
+      </div>
+    ))}
+  </div>
+)}
+
+
+        {/* Display list of colleges only on mobile view */}
+        
       </div>
 
       <div className="download-buttons">

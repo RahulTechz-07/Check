@@ -1,7 +1,7 @@
 :root {
   --primary-blue: #2563eb;
   --bg-white: #ffffff;
-  --accent-gold: #ffd700;
+  --accent-gold:  #D4AF37;
   --glass: rgba(255, 255, 255, 0.75);
   --border: rgba(255, 255, 255, 0.3);
 }
@@ -60,7 +60,7 @@ body {
 
 .registration-container h1 {
   text-align: center;
-  color: var(--primary-blue);
+  color: #0a296d;
   font-size: 32px;
   margin-bottom: 50px;
   text-shadow: 1px 1px 3px #00000044;
@@ -127,15 +127,18 @@ button[type="submit"] {
   padding: 14px;
   font-size: 16px;
   font-weight: 600;
+  width: 30%;
+  display: block;
   background-color: var(--primary-blue);
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 15px;
   cursor: pointer;
-  margin-top: 20px;
+  margin: 20px auto 0; /* Center horizontally */
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
+
 
 button[type="submit"]:hover {
   background-color: #1e40af;
@@ -152,4 +155,71 @@ h3 {
   color: #111;
   font-size: 20px;
   margin-top: 10px;
+}
+/* 📱 Mobile View: Screens ≤ 768px */
+@media (max-width: 768px) {
+  .registration-container {
+    margin: 30px 10px;
+    padding: 20px 16px;
+    border-radius: 12px;
+    box-shadow: none;
+  }
+
+  .registration-container h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px auto;
+    border-radius: 8px;
+  }
+
+  .registration-form {
+    gap: 16px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-row label {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .form-row input,
+  .form-row select {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .registration-form h2 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+button[type="submit"] {
+  width: 50%;
+  font-size: 15px;
+  padding: 12px;
+  margin: 15px auto 0;
+  display: block;
+}
+
+
+  .error {
+    font-size: 14px;
+    margin-top: -5px;
+  }
 }

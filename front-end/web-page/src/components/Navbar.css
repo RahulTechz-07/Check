@@ -48,7 +48,7 @@
 }
 
 .navbar-links li a:hover {
-  color: #FFD700;
+  color: #0a296d;
 }
 
 /* Left Section for logos */
@@ -56,4 +56,92 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.hamburger {
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+.navbar-left .logo {
+  width: 60px;
+  border-radius: 6px;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 5px 20px;
+  }
+  .navbar-left .naac,
+  .navbar-left .nba {
+    display: none;
+  }
+
+  .navbar-left .aamec {
+    align-items: center;
+    width: 50px;
+    height : 50px
+
+  }
+  .navbar-logo {
+    width: 100%;
+    text-align: center;
+    
+  }
+
+  .navbar-logo h1 {
+    font-size: 20px;
+    margin-left: 0px;
+    padding-right: 40px;
+  }
+
+  .navbar-left {
+    justify-content: left;
+    width: 1;
+    margin-bottom: 10px;
+    margin-top: 5px;
+  }
+
+  .hamburger {
+    display: block;
+    position: absolute;
+    top: 18px;
+    right: 25px;
+    z-index: 1001;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    width: 100%;
+    display: none;
+    gap: 0;
+    background-color: #1d4ed8;
+    padding: 10px 0;
+    border-radius: 6px;
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .navbar-links li {
+    width: 100%;
+  }
+
+  .navbar-links li a {
+    display: block;
+    padding: 10px 20px;
+    width: 100%;
+  }
+  .navbar-left img {
+  width: 40px;
+  border-radius: 6px;
+}
+
+  .navbar-links li a:hover {
+    background-color: #1e40af;
+  }
 }

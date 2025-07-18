@@ -1,11 +1,30 @@
 .footer {
-  background-color:  #2563eb;
+  background-color: #2563eb;
   color: white;
   text-align: center;
-  padding: 7px 10px;
-  position: relative;
-  bottom: 0;
- 
-  margin-top: 40px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   font-size: 14px;
+  width: 100%;
+  margin-top: auto; /* Push footer to bottom if using flex layout */
+}
+
+/* Optional: If you're using a flexbox layout on the page */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer {
+    font-size: 13px;
+    padding: 0px;
+  }
 }

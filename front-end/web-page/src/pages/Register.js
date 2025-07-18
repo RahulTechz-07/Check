@@ -210,7 +210,7 @@ try {
 
         {error && <p className="error">{error}</p>}
         <h3>Total Payment: ₹{amount}</h3>
-        <button type="submit" disabled={!!error}>Submit Registration</button>
+        <button type="submit" disabled={!!error}>Submit</button>
       </form>
     </div>
   );
