@@ -3,8 +3,7 @@ import "./Registration.css";
 import axios from "axios";
 import img from '../images/image.png';
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify"; // add this at the top
-
+import { toast } from "react-toastify";
 
 const initialState = {
   name: "",
@@ -35,9 +34,7 @@ const colleges = [
 ];
 
 const eventDetails = {
-  section1: [
-    { name: "Paper Presentation", type: "Technical" }
-  ],
+  section1: [{ name: "Paper Presentation", type: "Technical" }],
   section2: [
     { name: "Debugging", type: "Technical" },
     { name: "Quiz", type: "Technical" }
@@ -63,7 +60,8 @@ const Register = () => {
   const [formData, setFormData] = useState(initialState);
   const [error, setError] = useState("");
   const [amount, setAmount] = useState(0);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -81,7 +79,6 @@ const Register = () => {
       return null;
     });
 
-    
     const nonTechCount = selectedTypes.filter((type) => type === "Non-Technical").length;
 
     if (nonTechCount === 2) {
@@ -96,54 +93,82 @@ const Register = () => {
     setAmount(fee);
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-     if (!formData.name.trim() || !formData.college || !formData.email.trim() || !formData.phone.trim()) {
-    setError("Please fill in all required fields.");
-    return;
-  }
 
-  if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-    setError("Please enter a valid email address.");
-    return;
-  }
-
-  if (!/^\d{10}$/.test(formData.phone)) {
-    setError("Phone number must be exactly 10 digits.");
-    return;
-  }
-
-  if (error) {
-    alert("Fix form errors before submitting.");
-    return;
-  }
-
-try {
-    const res = await axios.post("https://symposiyum.onrender.com/register", formData); // adjust URL as per your backend
-    toast.success(`${res.data.message}\nTotal Payment: ₹${amount}`);
-    setFormData(initialState);
-    setAmount(0);
-      setTimeout(() => {
-    navigate('/');
-  }, 3000);
-
-    navigate('/');
-  } catch (err) {
-    if (err.response.status === 409) {
-      toast.error("This email is already registered.");
-    } else {
-      console.error(err);
-      toast.error("Something went wrong. Please try again.");
+    if (!formData.name.trim() || !formData.college || !formData.email.trim() || !formData.phone.trim()) {
+      setError("Please fill in all required fields.");
+      return;
     }
-  }
-  
+
+    if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!/^\d{10}$/.test(formData.phone)) {
+      setError("Phone number must be exactly 10 digits.");
+      return;
+    }
+
+    if (error) {
+      alert("Fix form errors before submitting.");
+      return;
+    }
+
+    try {
+      const orderRes = await axios.post("https://symposiyum.onrender.com/create-order", {
+        amount
+      });
+
+      const options = {
+        key: "rzp_test_YourKeyIDHere", // 🔁 Replace with your Razorpay Test Key ID
+        amount: orderRes.data.amount,
+        currency: "INR",
+        name: "IT Symposium",
+        description: "Event Registration Fee",
+        order_id: orderRes.data.id,
+        handler: async function (response) {
+          const registerRes = await axios.post("https://symposiyum.onrender.com/register", {
+            ...formData,
+            paymentId: response.razorpay_payment_id
+          });
+
+          toast.success(`${registerRes.data.message}\nTotal Paid: ₹${amount}`);
+          setFormData(initialState);
+          setAmount(0);
+
+          setTimeout(() => {
+            navigate("/");
+          }, 3000);
+        },
+        prefill: {
+          name: formData.name,
+          email: formData.email,
+          contact: formData.phone
+        },
+        theme: {
+          color: "#2563eb"
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      if (err.response?.status === 409) {
+        toast.error("This email is already registered.");
+      } else {
+        console.error(err);
+        toast.error("Something went wrong during payment.");
+      }
+    }
   };
 
   const selectedCount = Object.values(formData.events).filter(Boolean).length;
 
   return (
     <div className="registration-container">
-        <img src={img} className="img" alt="" />
+      <img src={img} className="img" alt="" />
       <h1>Register for Symposium</h1>
       <form onSubmit={handleSubmit} className="registration-form">
         <div className="form-row">
@@ -181,7 +206,7 @@ try {
         <hr />
         <h2>Select Your Events (Max 2 Total)</h2>
         <p style={{ color: "red", fontWeight: "bold", textAlign: "center" }}>
-          You are allowed to select only 1 or 2 events. Both non-technical events are not allowed. Paper Presentation is a technical event and placed in its own section.
+          You are allowed to select only 1 or 2 events. Both non-technical events are not allowed.
         </p>
 
         {Object.keys(eventDetails).map((section) => {
@@ -210,7 +235,7 @@ try {
 
         {error && <p className="error">{error}</p>}
         <h3>Total Payment: ₹{amount}</h3>
-        <button type="submit" disabled={!!error}>Submit</button>
+        <button type="submit" disabled={!!error}>Pay & Register</button>
       </form>
     </div>
   );
