@@ -25,3 +25,5 @@ router.post("/create-order", async (req, res) => {
     res.status(500).send("Error creating Razorpay order");
   }
 });
+
+export default router;
