@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import registerRoute from './routes/register.js';
 import participantRoutes from "./routes/participants.js";
+import createorder from "./routes/create-order.js"
 dotenv.config();
 
 const app = express();
@@ -22,6 +23,7 @@ mongoose.connect(MONGO_URI, {
 
 app.use('/', registerRoute);
 app.use("/participants", participantRoutes);
+app.use("/create-order", createorder);
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
