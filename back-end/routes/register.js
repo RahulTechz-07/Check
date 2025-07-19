@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-router.post('/register', async (req, res) => {
+router.post('/', async (req, res) => {  // ✅ updated from '/register' to '/'
   const { name, email, college, phone, food, events } = req.body;
 
   try {
@@ -28,7 +28,7 @@ router.post('/register', async (req, res) => {
     const participant = new Participant(req.body);
     await participant.save();
 
-    // Count total cost (you can adjust logic based on your rules)
+    // Count total cost
     const selectedEvents = Object.values(events || {}).filter(Boolean);
     const techEvents = selectedEvents.filter(ev => ev.toLowerCase().includes("tech")).length;
     const amountPaid = techEvents >= 2 ? 200 : 100;
