@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 import registerRoute from './routes/register.js';
 import participantRoutes from "./routes/participants.js";
 import createorder from "./routes/create-order.js";
-import checkEmailRoute from './routes/checkEmail.js';
+import checkEmailRoute from './routes/check-email.js'
 
 dotenv.config();
 
