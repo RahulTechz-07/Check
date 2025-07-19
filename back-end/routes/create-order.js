@@ -1,6 +1,6 @@
-// server.js or routes.js
-const Razorpay = require("razorpay");
-const express = require("express");
+import express from 'express';
+import Razorpay from 'razorpay';
+
 const router = express.Router();
 
 const razorpay = new Razorpay({
@@ -13,15 +13,15 @@ router.post("/create-order", async (req, res) => {
     const { amount } = req.body;
 
     const options = {
-      amount: amount * 100, // in paisa
+      amount: amount * 100, // amount in paisa
       currency: "INR",
-      receipt: "receipt_order_" + Date.now(),
+      receipt: "receipt_" + Date.now(),
     };
 
     const order = await razorpay.orders.create(options);
     res.json(order);
   } catch (err) {
-    console.error(err);
+    console.error("Razorpay error:", err);
     res.status(500).send("Error creating Razorpay order");
   }
 });
