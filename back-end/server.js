@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import registerRoute from './routes/register.js';
 import participantRoutes from "./routes/participants.js";
 import createorder from "./routes/create-order.js";
+import checkEmailRoute from './routes/checkEmail.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ mongoose.connect(MONGO_URI, {
 app.use('/register', registerRoute);       // ✅ Correct for POST /register
 app.use('/participants', participantRoutes);
 app.use('/create-order', createorder);
+app.use('/check-email', checkEmailRoute);
 
 // Start Server
 app.listen(PORT, () => {
