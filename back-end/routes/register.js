@@ -7,29 +7,45 @@ dotenv.config();
 
 const router = express.Router();
 
-// Nodemailer transporter
+/* ------------------ EMAIL TRANSPORTER ------------------ */
+
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.GMAIL_USER,
     pass: process.env.GMAIL_PASS
-  }
+  },
+  tls: {
+    rejectUnauthorized: false
+  },
+  connectionTimeout: 10000
 });
 
-router.post("/", async (req, res) => {
+/* ------------------ REGISTER ROUTE ------------------ */
 
+router.post("/", async (req, res) => {
   const { name, email, college, phone, food, events } = req.body;
 
   try {
 
+    /* -------- CHECK EXISTING EMAIL -------- */
+
     const existing = await Participant.findOne({ email });
 
     if (existing) {
-      return res.status(409).json({ message: "Email already registered" });
+      return res.status(409).json({
+        message: "Email already registered"
+      });
     }
+
+    /* -------- SAVE PARTICIPANT -------- */
 
     const participant = new Participant(req.body);
     await participant.save();
+
+    /* -------- EVENT CALCULATION -------- */
 
     const selectedEvents = Object.values(events || {}).filter(Boolean);
 
@@ -39,13 +55,15 @@ router.post("/", async (req, res) => {
 
     const amountPaid = techEvents >= 2 ? 200 : 100;
 
+    /* -------- EMAIL CONTENT -------- */
+
     const emailHTML = `
       <h2 style="color:#2e6c80;">Thank You for Registering, ${name}!</h2>
 
       <p>
       We are pleased to confirm your registration for the 
       <strong>A.A.M. Engineering College – IT Symposium</strong>.
-      This event is a celebration of innovation, technology, and student collaboration.
+      This event celebrates innovation, technology, and student collaboration.
       </p>
 
       <p><strong>Your Registration Details:</strong></p>
@@ -60,38 +78,49 @@ router.post("/", async (req, res) => {
         <li><strong>Total Amount Paid:</strong> ₹${amountPaid}</li>
       </ul>
 
-      <p>Please carry this confirmation email during the event.</p>
+      <p>
+      Please carry this email confirmation on the day of the event.
+      </p>
 
       <p style="margin-top:20px;">
       Warm regards,<br/>
-      <strong>IT Department<br/>A.A.M. Engineering College</strong>
+      <strong>IT Department<br/>A.A.M Engineering College</strong>
       </p>
     `;
 
+    /* -------- MAIL OPTIONS -------- */
+
     const mailOptions = {
-      from: process.env.GMAIL_USER,
+      from: `"AAMEC IT Symposium" <${process.env.GMAIL_USER}>`,
       to: email,
       subject: "AAMEC IT Symposium Registration Confirmation",
       html: emailHTML
     };
 
+    /* -------- VERIFY SMTP -------- */
+
+    await transporter.verify();
+
+    /* -------- SEND EMAIL -------- */
+
     await transporter.sendMail(mailOptions);
 
+    /* -------- SUCCESS RESPONSE -------- */
+
     res.status(201).json({
-      message: "Registration successful and confirmation email sent"
+      message: "Registration successful and email sent"
     });
 
-  } catch (err) {
+  } catch (error) {
 
-    console.error("Registration error:", err);
+    console.error("Registration error:", error);
 
     res.status(500).json({
       message: "Server error",
-      error: err.message
+      error: error.message
     });
 
   }
-
 });
 
 export default router;
